@@ -2,87 +2,87 @@ let cipher = "TUPPRHYXBHRDPGAURYHUCKUPJAYLLDDJRUCKXAHDJDPPDKRHGKAYLLDGKHDPPRHGES
 
 let new_cipher = ""
 
-for (let i = 0; i < cipher.length; i++) {
-    switch (cipher[i]) {
+for (let i = 0; i < ciphertext.length; i++) {
+    switch (ciphertext[i]) {
         case 'A':
-            new_cipher = new_cipher + 'C';
+            plaintext = plaintext + 'C';
             break;
         case 'B':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'C':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'D':
-            new_cipher = new_cipher + 'A'
+            plaintext = plaintext + 'A'
             break;
         case 'E':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'F':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'G':
-            new_cipher = new_cipher + 'N'
+            plaintext = plaintext + 'N'
             break;
         case 'H':
-            new_cipher = new_cipher + "H"
+            plaintext = plaintext + "H"
             break;
         case 'I':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'J':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'K':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'L':
-            new_cipher = new_cipher + 'M'
+            plaintext = plaintext + 'M'
             break;
         case 'M':
-            new_cipher = new_cipher + 'K'
+            plaintext = plaintext + 'K'
             break;
         case 'N':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'O':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'P':
-            new_cipher = new_cipher + 'L'
+            plaintext = plaintext + 'L'
             break;
         case 'Q':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'R':
-            new_cipher = new_cipher + 'T'
+            plaintext = plaintext + 'T'
             break;
         case 'S':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'T':
-            new_cipher = new_cipher + 'W'
+            plaintext = plaintext + 'W'
             break;
         case 'U':
-            new_cipher = new_cipher + 'E'
+            plaintext = plaintext + 'E'
             break;
         case 'V':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'W':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'X':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
         case 'Y':
-            new_cipher = new_cipher + 'O'
+            plaintext = plaintext + 'O'
             break;
         case 'Z':
-            new_cipher = new_cipher + cipher[i]
+            plaintext = plaintext + ciphertext[i]
             break;
     }
 }
 
-console.log(new_cipher)
+console.log(plaintext)
