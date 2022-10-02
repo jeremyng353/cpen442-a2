@@ -1,23 +1,37 @@
-//import { permutations } from "./PlayfairKeys"
+import {randomKey} from "./PlayfairKeys.js" 
 
 // let table = [['P', 'L', 'A', 'Y', 'F'], ['I', 'R', 'B', 'C', 'D'], ['E', 'G', 'H', 'K', 'M'], ['N', 'O', 'Q', 'S', 'T'], ['U', 'V', 'W', 'X', 'Z']]
 
 const ciphertext = "OPRSRMFTRARVEHCFDIQERAHEHIRVKMLKHUWEKNUIMXSNEZNKHOPLMPSROPRAHUWEKNKEASCNHNTFOPGCHOHTILNERIMLVEITBSMURPHUWECHMFIUKMRKRSSIOPRAHEHIHXFOIUEDDGDMZDRSTXLHREMPPLDEATSLHOITDEFMSRZHARFLBIOPKMWIHRITSRVEMNGEOHUSOPRSHNOPRICERVDMOPVIHEZXMRIMEWDCNKHOHNTFOPBQKEZNDMZSMPNGKMHOITVWEMVEHMXDMFIUGBEHGEVOOPSMOPMIGMHIADDNHXFOIUPLHPKIURSMVEKMCLDSEDIROSCBGZHXFOIUUKTRWIMZKNPHZEKMHKMHOSSIOHOPVIFTMSTFORITPHGERAITSROPRALHASLKHEHIIPLGVMSMCBDMSKHOPLPEDEHEKEASHSITDLVORHTMDCPFIUXDMFIUKMCDMONPSIHXFOIUKMLGSUKMOHIWBYICHOOPRMVMREMNOPSIMULKHEHIIPCNCLEKQOATWESISMEHSRCBHXFOIUKMKDHOILDSKWRDRMRZZEOPRVLDTRSVPHRVHNEVITKWVNTNFHCHMFIUVMWHUAMSHSITALVHPHORITXMSEIHMFIUOPPETDSIELSIZAAYLHWDUCOSITEGDKHOOPPEDEOPVMSMHNOLRSHNRZZEOPRVLDTRSVPHRVWEVUMZSVHXFOIUKMCGMZTDWIDIQEREITOEFPMUSLHOTDRSMUHISIHNKFKMHKLHASIGZOITTDMTVDMFIUKMIKORRSTDWQDMZSITIGVEMZOHORITOIKMISHSITOENHFTHOCZHNVOOPRAHEHIMNOPVMMUVEKWTKTFGIMNOPNTRVLDTRSVPHRVHXFOIUEKLCMXTMORITIEXDDPDMVDMFIUKMHSITSRDETNIMHIWEXIMXMSHVSIALOPOPMIGBRPIPEHEHRKSMRTRSGDRAHNSHFTHOCZIQVFELSIOPRVPHRVDMOHOPTIMZVRKMHKIWIVHSITFMOSITEPRWSIHOOPSMTDVIUITMZEKUUAOSHOITIEXDDPDMEKDKEKLCAUIUXOHMGEOHUSRZQIPSMFUQGMEPDKGMHDVIMFIUNMELUIEGSROPVUALCFWBFTVBWUMZEOSIHOIQXGMZITHWIMMLDKXUKWZVITIEXDDPDMEKDKOPRAHEHIMLSVRHMONPSIPEMXMUXMOPRSHXFOIUKMHSITMKSHFTHOCZHXFOIUKMHSITDNPHNPOPMATLMUKNHNEPVOOPVMMUVEHXFOIUXMROWELFMFITSRHXFOIUEKLCMXVIMFIUOPRSMAEKBSMUSHRVRSVHMFIUKMKDMXVIMZDCDLTROHLVNTEDSHHOHEDEOPRVUIMUVOOPRVMZOPHXFOIUEKLCKMHOITVLMFIUNMELIPTRURSMOPRSMUDKVRSMHEHNVOOPRVMZOPDEOPVIMZOSVBMNOPVAEUCDDMSNHNEHUIOHDCHXFOIUEKLCOPREILSLIUXDMFIUOPPEHEDEOPRVUIMUVOOPRARVSHHOKMHSIPVHMZOSVBHXFOIUPLRSREITALDGAMRDCEVIMFIUDEEBIRLGZVITALDQSIALVHPHORITARVEHXFOIUPLFPMZDCIUASZXZIRSRDQEMAXBMZAWVNVRCIRSKWGCHOOPSMFTOPDEXUPHIMHXFOIUEKLCOPTMDCIWCGHXFOIUKMIKEHEVSIUSDEOPRVUISUSRPEISVRSEOPPEEGVFTFGMKNOPDEIWDKMNHTHNEHIULFUACHMFIUXUISWEHXFOIUZXBALDDIQEREFHCERAHEIZNKHOHNTFOPZGSUKMOHTNUWVOOPDEHXFOIUNMSVITMRHRHFMSCBUIMXUKCFHRITVRVEEWDSTATMWHSIHOITSEMUSVVRMISIOHBSAMTROPSADMCIMUSESIIEXDDPDMVDMFIUNMSEITUCFOIMCLPERIZVMONPMZVOOPMATLKMKGRSHIAMNRKMLGSUKMOHARTAWITNHNEPRNFTOPRIHERHTMDCPFIUXDMFIUTDREMONPMNOLRSIQAWDKUWIWXDSIOPTAMHOSMXOPVMSMHNOLRSXMVRHXFOIUPLLDRVITHXGMERHNMSHXFOIURPXHMFIUOPSRMAMKTNIRFXTXLHSIHOPEMXIVOPVIWAHIKMUSHSMPRDPEVIMFIUMXPLLHLPKEBFHEERMDFGDUHXFOIUPLHEVIIPDWIUSWRDREHNTFOPZYHOHOITHLVZMNMIRSWIKNOPRIHERHTMDCPFIUOSMONPOPRVIWERLFMFITSFNTVIMFIUKMCIQEDMBSMUHSITPFSLTNMDVHMFIUKEASCHMFIUDEZXBEMKIMHNTFOPVQMFIUXUISWEUVVDMFIUKMRKRSSIOPVIILDCHXFOIUHFNPDMYBAWDKLSUCDSITSEMUSVHNVOOPSMZXEIGESZHOHOITHLVZMNMIRSWIKNHNOZRSIPKTHTALCFDIRIQZMZHNRPITSRDEOPDEHLVZKEASCNHNTFOPGCHOHEDEVMQIRHUCOSITIVOSRSMNOPVIMZOSVBHXFOIUKMCLVSBISIGZHTHXFOIUOPSUSRPEALUPSLHEFHCGMZMN";
+const keysToTry = [ 
+    ["U","G","X","Y","Q",
+     "S","P","R","N","Z",
+     "I","M","T","K","O",
+     "V","E","C","L","A",
+     "D","W","F","B","H"]
+];
 
-tryExample();
+//tryExample();
+//runN(randomKey, 10000); //found a successful key! -> U,G,X,Y,Q,S,P,R,N,Z,I,M,T,K,O,V,E,C,L,A,D,W,F,B,H
 
-function runAll(keys) {
-    // run just 100 keys for now
-    const iterations = 100;
+let result = playfair(ciphertext, keysToTry[0]);
+console.log(result);
+
+function runN(keyFunc, iterations) {
     let successfulKeys = []
     let count;
-    for (count = 0; i < iterations; i++) {
-        let keySuccess = runOne(keys[count]); // keys is from PlayfairKeys.js
+
+    let start = Date.now();;
+    for (count = 0; count < iterations; count++) {
+        let key = keyFunc();        
+        let keySuccess = runOne(key); // keys is from PlayfairKeys.js
+
         if (keySuccess) {
-            successfulKeys.push(keys[count]);
+            successfulKeys.push(key);
         }
     }
-    console.log(successfulKeys);
+    let end = Date.now();
+    console.log(`${end - start} ms taken to evaluate ${iterations} keys and find ${successfulKeys.length} succesful keys. ${successfulKeys}`);
 }
 
 function runOne(key) {
@@ -26,7 +40,7 @@ function runOne(key) {
     let end = Date.now();
     
     let success = false;
-    let report = `Time taken to check key ${key}: ${end - start}`;
+    let report = `Time taken to check key ${key}: ${end - start} ms`;
     if (result.indexOf("COMMA") != -1 && result.indexOf("DOT") != -1) {
         report += "\nCOMMA and DOT found in plaintext!"
         success = true
@@ -70,9 +84,13 @@ function playfair(ciphertext, key) {
             table_map[table[i][j]] = [i, j];
         }
     }
+    // console.log(table);
+    // console.log(table_map);
     
     for (let i = 0; i < ciphertext.length-1; i += 2) {
         let digraph = "";
+        let l1 = "";
+        let l2 = "";
         if (table_map[ciphertext[i]][0] == table_map[ciphertext[i+1]][0]) {
             // column
             let i1 = table_map[ciphertext[i]];
@@ -81,13 +99,13 @@ function playfair(ciphertext, key) {
             if(i1[1] > 0){
                 l1 = table[i1[0]][i1[1]-1];
             } else {
-                l1 = table[i1[0]][table.length];
+                l1 = table[i1[0]][table.length - 1];
             }
             
             if(i2[1] > 0){
                 l2 = table[i2[0]][i2[1]-1];
             } else {
-                l2 = table[i2[0]][table.length];
+                l2 = table[i2[0]][table.length - 1];
             }
             digraph = l1+l2;
             
@@ -99,13 +117,13 @@ function playfair(ciphertext, key) {
             if(i1[0] >0){
                 l1 = table[i1[0] - 1][i1[1]];
             } else {
-                l1 = table[table.length][i1[1]];
+                l1 = table[table.length - 1][i1[1]];
             }
             
             if(i2[0] >0){
                 l2 = table[i2[0] - 1][i2[1]];
             } else {
-                l2 = table[table.length][i2[1]];
+                l2 = table[table.length - 1][i2[1]];
             }
             
             
