@@ -12,10 +12,9 @@ const keysToTry = [
 ];
 
 //tryExample();
-//runN(randomKey, 10000); //found a successful key! -> U,G,X,Y,Q,S,P,R,N,Z,I,M,T,K,O,V,E,C,L,A,D,W,F,B,H
+// runN(randomKey, 100000); //found a successful key! -> U,G,X,Y,Q,S,P,R,N,Z,I,M,T,K,O,V,E,C,L,A,D,W,F,B,H -> plaintext has COMMA and DOT in it
 
-let result = playfair(ciphertext, keysToTry[0]);
-console.log(result);
+runOne(keysToTry[0], true);
 
 function runN(keyFunc, iterations) {
     let successfulKeys = []
@@ -24,30 +23,62 @@ function runN(keyFunc, iterations) {
     let start = Date.now();;
     for (count = 0; count < iterations; count++) {
         let key = keyFunc();        
-        let keySuccess = runOne(key); // keys is from PlayfairKeys.js
+        let keySuccess = runOne(key, false); // keys is from PlayfairKeys.js
 
         if (keySuccess) {
             successfulKeys.push(key);
         }
     }
     let end = Date.now();
-    console.log(`${end - start} ms taken to evaluate ${iterations} keys and find ${successfulKeys.length} succesful keys. ${successfulKeys}`);
+    console.log(`${end - start} ms taken to evaluate ${iterations} keys and find ${successfulKeys.length} succesful keys.`);
+    console.log(`successful keys: ${successfulKeys}`);
 }
 
-function runOne(key) {
+function runOne(key, verbose) {
     let start = Date.now();
     let result = playfair(ciphertext, key)
     let end = Date.now();
     
     let success = false;
     let report = `Time taken to check key ${key}: ${end - start} ms`;
-    if (result.indexOf("COMMA") != -1 && result.indexOf("DOT") != -1) {
-        report += "\nCOMMA and DOT found in plaintext!"
-        success = true
+    let keywords = commonWordsFound(result); 
+    if (keywords.length > 0) {
+        report += `\ncommon words found in plaintext: ${keywords}`;
+        if (keywords.includes("COMMA") 
+            && keywords.includes("DOT")
+            && keywords.includes("THE")) 
+        {
+            report += "\nCOMMA, DOT, and THE found in plaintext!"
+            success = true
+        }
     }
-    
     console.log(report);
+    
+    if (verbose) {
+        console.log(result);
+    }
+
     return success;
+}
+
+function commonWordsFound (str) {
+    const commonWords = [
+        "COMMA", 
+        "DOT", 
+        "THE", 
+        "AND", 
+        "ARE", 
+        "IS", 
+        "IN", 
+        "ON", 
+        "FOR"];
+    let wordsFound = [];
+    for (let i = 0; i < commonWords.length; i++) {
+        if (str.indexOf(commonWords[i]) != -1) {
+            wordsFound.push(commonWords[i]);
+        }
+    }
+    return wordsFound;
 }
 
 function tryExample(){
