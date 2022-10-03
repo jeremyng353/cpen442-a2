@@ -17,7 +17,7 @@ let alphabet = ['A', 'B', 'C', 'D', 'E',
 //there are 25! ways to rearrange the 25 letters in the 5x5 matrix
 
 // rearrange the 25 letters 
-alphabet = alphabet.reverse()
+/*alphabet = alphabet.reverse()
 let i = 0;
 let keys = permutations(alphabet);
 for(let j=0; j<keys.length; j++){
@@ -25,10 +25,12 @@ for(let j=0; j<keys.length; j++){
 }
 //keys is an array of all possible keys
 // each key is a 25 character long array
-// console.log(keys)
-// console.log("Total keys = " + keys.length);
-// console.log(keys[keys.length-1]);
+console.log(keys)
+console.log("Total keys = " + keys.length);
+console.log(keys[keys.length-1]);
+*/
 
+getKeys(alphabet);
 // source: https://www.30secondsofcode.org/js/s/permutations
 
 function permutations(arr) {
@@ -72,3 +74,35 @@ export {
   keys,
   randomKey
 }
+// source: https://www.baeldung.com/cs/array-generate-all-permutations
+// adapted from: https://gist.github.com/brianpursley/57bbaf0a8823e51012bc
+function getKeys(arr){
+  let N = arr.length
+  let p = []
+  let index;
+  for (index = 0; index < (N+1); index++) {
+    p[index] = index
+  }
+  let i = 1
+  let j
+  console.log(arr);	
+  while (i < N){
+    p[i] -= 1;
+    if (i % 2 == 1) {
+      j = p[i]
+    } else {
+      j = 0
+    }
+    let temp = arr[j]
+    arr[j] = arr[i]
+    arr[i] = temp
+    console.log(arr);
+    i = 1;
+    while (p[i] == 0){
+      p[i] = i
+      i += 1
+    }
+  }
+}
+
+// export { keys };

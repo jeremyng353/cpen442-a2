@@ -1,8 +1,7 @@
-import {randomKey} from "./PlayfairKeys.js" 
-
-// let table = [['P', 'L', 'A', 'Y', 'F'], ['I', 'R', 'B', 'C', 'D'], ['E', 'G', 'H', 'K', 'M'], ['N', 'O', 'Q', 'S', 'T'], ['U', 'V', 'W', 'X', 'Z']]
 
 const ciphertext = "OPRSRMFTRARVEHCFDIQERAHEHIRVKMLKHUWEKNUIMXSNEZNKHOPLMPSROPRAHUWEKNKEASCNHNTFOPGCHOHTILNERIMLVEITBSMURPHUWECHMFIUKMRKRSSIOPRAHEHIHXFOIUEDDGDMZDRSTXLHREMPPLDEATSLHOITDEFMSRZHARFLBIOPKMWIHRITSRVEMNGEOHUSOPRSHNOPRICERVDMOPVIHEZXMRIMEWDCNKHOHNTFOPBQKEZNDMZSMPNGKMHOITVWEMVEHMXDMFIUGBEHGEVOOPSMOPMIGMHIADDNHXFOIUPLHPKIURSMVEKMCLDSEDIROSCBGZHXFOIUUKTRWIMZKNPHZEKMHKMHOSSIOHOPVIFTMSTFORITPHGERAITSROPRALHASLKHEHIIPLGVMSMCBDMSKHOPLPEDEHEKEASHSITDLVORHTMDCPFIUXDMFIUKMCDMONPSIHXFOIUKMLGSUKMOHIWBYICHOOPRMVMREMNOPSIMULKHEHIIPCNCLEKQOATWESISMEHSRCBHXFOIUKMKDHOILDSKWRDRMRZZEOPRVLDTRSVPHRVHNEVITKWVNTNFHCHMFIUVMWHUAMSHSITALVHPHORITXMSEIHMFIUOPPETDSIELSIZAAYLHWDUCOSITEGDKHOOPPEDEOPVMSMHNOLRSHNRZZEOPRVLDTRSVPHRVWEVUMZSVHXFOIUKMCGMZTDWIDIQEREITOEFPMUSLHOTDRSMUHISIHNKFKMHKLHASIGZOITTDMTVDMFIUKMIKORRSTDWQDMZSITIGVEMZOHORITOIKMISHSITOENHFTHOCZHNVOOPRAHEHIMNOPVMMUVEKWTKTFGIMNOPNTRVLDTRSVPHRVHXFOIUEKLCMXTMORITIEXDDPDMVDMFIUKMHSITSRDETNIMHIWEXIMXMSHVSIALOPOPMIGBRPIPEHEHRKSMRTRSGDRAHNSHFTHOCZIQVFELSIOPRVPHRVDMOHOPTIMZVRKMHKIWIVHSITFMOSITEPRWSIHOOPSMTDVIUITMZEKUUAOSHOITIEXDDPDMEKDKEKLCAUIUXOHMGEOHUSRZQIPSMFUQGMEPDKGMHDVIMFIUNMELUIEGSROPVUALCFWBFTVBWUMZEOSIHOIQXGMZITHWIMMLDKXUKWZVITIEXDDPDMEKDKOPRAHEHIMLSVRHMONPSIPEMXMUXMOPRSHXFOIUKMHSITMKSHFTHOCZHXFOIUKMHSITDNPHNPOPMATLMUKNHNEPVOOPVMMUVEHXFOIUXMROWELFMFITSRHXFOIUEKLCMXVIMFIUOPRSMAEKBSMUSHRVRSVHMFIUKMKDMXVIMZDCDLTROHLVNTEDSHHOHEDEOPRVUIMUVOOPRVMZOPHXFOIUEKLCKMHOITVLMFIUNMELIPTRURSMOPRSMUDKVRSMHEHNVOOPRVMZOPDEOPVIMZOSVBMNOPVAEUCDDMSNHNEHUIOHDCHXFOIUEKLCOPREILSLIUXDMFIUOPPEHEDEOPRVUIMUVOOPRARVSHHOKMHSIPVHMZOSVBHXFOIUPLRSREITALDGAMRDCEVIMFIUDEEBIRLGZVITALDQSIALVHPHORITARVEHXFOIUPLFPMZDCIUASZXZIRSRDQEMAXBMZAWVNVRCIRSKWGCHOOPSMFTOPDEXUPHIMHXFOIUEKLCOPTMDCIWCGHXFOIUKMIKEHEVSIUSDEOPRVUISUSRPEISVRSEOPPEEGVFTFGMKNOPDEIWDKMNHTHNEHIULFUACHMFIUXUISWEHXFOIUZXBALDDIQEREFHCERAHEIZNKHOHNTFOPZGSUKMOHTNUWVOOPDEHXFOIUNMSVITMRHRHFMSCBUIMXUKCFHRITVRVEEWDSTATMWHSIHOITSEMUSVVRMISIOHBSAMTROPSADMCIMUSESIIEXDDPDMVDMFIUNMSEITUCFOIMCLPERIZVMONPMZVOOPMATLKMKGRSHIAMNRKMLGSUKMOHARTAWITNHNEPRNFTOPRIHERHTMDCPFIUXDMFIUTDREMONPMNOLRSIQAWDKUWIWXDSIOPTAMHOSMXOPVMSMHNOLRSXMVRHXFOIUPLLDRVITHXGMERHNMSHXFOIURPXHMFIUOPSRMAMKTNIRFXTXLHSIHOPEMXIVOPVIWAHIKMUSHSMPRDPEVIMFIUMXPLLHLPKEBFHEERMDFGDUHXFOIUPLHEVIIPDWIUSWRDREHNTFOPZYHOHOITHLVZMNMIRSWIKNOPRIHERHTMDCPFIUOSMONPOPRVIWERLFMFITSFNTVIMFIUKMCIQEDMBSMUHSITPFSLTNMDVHMFIUKEASCHMFIUDEZXBEMKIMHNTFOPVQMFIUXUISWEUVVDMFIUKMRKRSSIOPVIILDCHXFOIUHFNPDMYBAWDKLSUCDSITSEMUSVHNVOOPSMZXEIGESZHOHOITHLVZMNMIRSWIKNHNOZRSIPKTHTALCFDIRIQZMZHNRPITSRDEOPDEHLVZKEASCNHNTFOPGCHOHEDEVMQIRHUCOSITIVOSRSMNOPVIMZOSVBHXFOIUKMCLVSBISIGZHTHXFOIUOPSUSRPEALUPSLHEFHCGMZMN";
+
+//-------------------some keys found--(using random)-----------------------
 const keysToTry = [ 
     ["U","G","X","Y","Q",   // COMMA, DOT
      "S","P","R","N","Z",
@@ -21,13 +20,51 @@ const keysToTry = [
      "M","G","K","E","W"]
 ];
 
-// tryExample();
-// runN(randomKey, 1000000); //found a successful key! -> U,G,X,Y,Q,S,P,R,N,Z,I,M,T,K,O,V,E,C,L,A,D,W,F,B,H -> plaintext has COMMA and DOT in it
+//-------------------try example----------------
+tryExample();
+function tryExample(){
+    //try the example given in the pdf
+    const key = ['P', 'L', 'A', 'Y', 'F', 
+                'I', 'R', 'E', 'X', 'M', 
+                'B', 'C', 'D', 'G', 'H', 
+                'K', 'N', 'O', 'Q', 'S', 
+                'T', 'U', 'V', 'W', 'Z'];
 
+    const plaintext = "HIDETHEGOLDINTHETREESTUMP";
+    const ciphertext = "BMODZBXDNABEKUDMUIXMMOUVIF";
+
+    let result = playfair(ciphertext, key);
+    console.log("Resulting plaintext from function = " +  result.toString());
+    console.log("Actual plaintext = " + plaintext);
+}
+
+//---------------------Some background on keyspace--------------------
+// the key is some word fit into a 5 x 5 matrix.
+// There are a total of 26 letters in English
+// There are 25 ways to pick 25 out of 26 letters
+//there are 25! ways to rearrange the 25 letters in the 5x5 matrix
+
+
+//---------------------alphabets used in keys-------------------
+let alphabet = ['A', 'B', 'C', 'D', 'E', 
+                'F', 'G', 'H', 'I', 'K', 
+                'L', 'M', 'N', 'O', 'P', 
+                'Q', 'R', 'S', 'T', 'U',
+                'V', 'W', 'X', 'Y', 'Z'];
+
+
+
+//---------------------try keys------------------------------
 runOne(keysToTry[0], true);
 runOne(keysToTry[1], true);
 runOne(keysToTry[2], true);
+// runN(randomKey, 1000000); //found a successful key! -> U,G,X,Y,Q,S,P,R,N,Z,I,M,T,K,O,V,E,C,L,A,D,W,F,B,H -> plaintext has COMMA and DOT in it
 
+
+
+//-------------------------------------------------------------
+//-------------------FUNCTIONS--------------------------------
+//-------------------------------------------------------------
 function runN(keyFunc, iterations) {
     let successfulKeys = []
     let count;
@@ -103,6 +140,7 @@ function plaintextAsDigraphs (plaintext) {
     }
     return newText;
 }
+
 function highlightFoundKeywords (str) {
     str = str.replace(/THE/g, "the");
     str = str.replace(/AND/g, "and");
@@ -113,26 +151,11 @@ function highlightFoundKeywords (str) {
     str = str.replace(/FOR/g, "for");
     return str;
 }
+
 function punctuatePlaintext (str) {
     str = str.replace(/COMMA/g, ",");
     str = str.replace(/DOT/g, ".");
     return str;
-}
-
-function tryExample(){
-    //try the example given in the pdf
-    const key = ['P', 'L', 'A', 'Y', 'F', 
-                'I', 'R', 'E', 'X', 'M', 
-                'B', 'C', 'D', 'G', 'H', 
-                'K', 'N', 'O', 'Q', 'S', 
-                'T', 'U', 'V', 'W', 'Z'];
-
-    const plaintext = "HIDETHEGOLDINTHETREESTUMP";
-    const ciphertext = "BMODZBXDNABEKUDMUIXMMOUVIF";
-
-    let result = playfair(ciphertext, key);
-    console.log("Resulting plaintext from function = " +  result.toString());
-    console.log("Actual plaintext = " + plaintext);
 }
 
 function playfair(ciphertext, key) {
@@ -164,6 +187,7 @@ function playfair(ciphertext, key) {
             // column
             let i1 = table_map[ciphertext[i]];
             let i2 = table_map[ciphertext[i+1]];
+            let l1, l2;
 
             if(i1[1] > 0){
                 l1 = table[i1[0]][i1[1]-1];
@@ -220,3 +244,73 @@ function playfair(ciphertext, key) {
     
     return plaintext;
 }
+
+//*************random keys*****************/
+function randomKey() {
+    // Assumption: unlikely to repeat a key in repeated calls
+    let key = [];
+    let takenIndices = [];
+    for (let i = 0; i < 25; i++) {
+        let idx = -1;
+        while (idx < 0 || takenIndices.includes(idx)) {
+        idx = Math.floor(Math.random() * 25);
+        }
+        takenIndices.push(idx);
+        key.push(alphabet[idx]);
+    }
+    return key;
+}
+
+// source: https://www.30secondsofcode.org/js/s/permutations
+function permutations(arr) {
+    i += 1;
+    if(i >= 100){
+        return [];
+    }
+    if (arr.length <= 2) return arr.length === 2 ? [arr, [arr[1], arr[0]]] : arr;
+    return arr.reduce(
+      (acc, item, i) =>
+        acc.concat(
+          permutations([...arr.slice(0, i), ...arr.slice(i + 1)]).map(val => [
+            item,
+            ...val,
+          ])
+        ),
+      []
+    );
+};
+
+// source: https://www.baeldung.com/cs/array-generate-all-permutations
+// adapted from: https://gist.github.com/brianpursley/57bbaf0a8823e51012bc
+function getKeys(arr){
+    let N = arr.length
+    let p = []
+    let index;
+    for (index = 0; index < (N+1); index++) {
+      p[index] = index
+    }
+    let i = 1
+    let j
+    console.log(arr);
+    let result = runOne(arr);
+    if(result === 1) return;
+    while (i < N){
+      p[i] -= 1;
+      if (i % 2 == 1) {
+        j = p[i]
+      } else {
+        j = 0
+      }
+      let temp = arr[j]
+      arr[j] = arr[i]
+      arr[i] = temp
+      console.log(arr);
+      result = runOne(arr);
+      if(result === 1) return;
+      i = 1;
+      while (p[i] == 0){
+        p[i] = i
+        i += 1
+      }
+    }
+  }
