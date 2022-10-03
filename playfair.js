@@ -67,7 +67,7 @@ function runOne(key, verbose) {
     console.log(report);
     
     if (verbose) {
-        console.log(highlightFoundKeywords(punctuatePlaintext(result)));
+        console.log(plaintextAsDigraphs(highlightFoundKeywords(result)));
     }
 
     return success;
@@ -93,6 +93,16 @@ function commonWordsFound (str) {
     return wordsFound;
 }
 
+function plaintextAsDigraphs (plaintext) {
+    let newText = "";
+    for (let i = 0; i < plaintext.length; i++) {
+        if (i > 0 && i % 2 === 0) {
+            newText += " ";
+        }
+        newText += plaintext.charAt(i);
+    }
+    return newText;
+}
 function highlightFoundKeywords (str) {
     str = str.replace(/THE/g, "the");
     str = str.replace(/AND/g, "and");
