@@ -1,4 +1,3 @@
-import {randomKey} from "./PlayfairKeys.js" 
 import {englishDigraphFrequencies, enlishDigraphsDescendingFrequencyOrder} from "./englishDigraphFrequencies.js"
 
 // let table = [['P', 'L', 'A', 'Y', 'F'], ['I', 'R', 'B', 'C', 'D'], ['E', 'G', 'H', 'K', 'M'], ['N', 'O', 'Q', 'S', 'T'], ['U', 'V', 'W', 'X', 'Z']]
@@ -112,7 +111,6 @@ const keysToTry = [
 for (let i = 0; i < keysToTry.length; i++) {
     runOne(keysToTry[i], true);
 }
-
 //-------------------try example----------------
 tryExample();
 function tryExample(){
