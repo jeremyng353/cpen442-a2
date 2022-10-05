@@ -10,4 +10,5 @@
   - getKeys(): iterative function, takes an array (key matrix) and tests this key to check if it produces plaintext
   - randomKeys(): returns a random permutation of the alphabet as the key
 - pseudo.js
-  -
+  - NGram_Score produces a score for plain text based on similarities to the English Language. This was adapted from http://practicalcryptography.com/cryptanalysis/text-characterisation/quadgrams/.
+  - main(): runs endlessly, generating random keys and printing out plaintexts that have a better ngram_score than our previous best.
