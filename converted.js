@@ -184,7 +184,6 @@ function modifyKey(oldKey){
             newKey = structuredClone(oldKey);
             exchange2letters(newKey);
     }
-    console.log(newKey);
     return newKey;
 }
 
