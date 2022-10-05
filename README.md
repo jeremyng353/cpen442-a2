@@ -8,3 +8,6 @@
   - tryExample(): tests the function playfair with the example given in Playfair Cipher mechanics pdf (https://www.dropbox.com/s/2uykh1e24k5hr10/02-Playfair%20Cipher.pdf)
   - permutations(): regression function takes an array (in our case the default key matrix) and gives an array of all permutations of the argument array, in this case - all possible keys
   - getKeys(): iterative function, takes an array (key matrix) and tests this key to check if it produces plaintext
+  - randomKeys(): returns a random permutation of the alphabet as the key
+- pseudo.js
+  -
