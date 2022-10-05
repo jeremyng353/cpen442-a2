@@ -135,8 +135,8 @@ function playfair(ciphertext, key) {
 
 // TODO: when trying to shuffle the key, one entry is undefined
 function keyShuffle(key) {
-    for (let i = 2; i <= 25; i++) {
-        let j = Math.round(Math.random() * 100) % i;
+    for (let i = 1; i < 25; i++) {
+        let j = Math.round(Math.random() * 100) % (i + 1);
         let temp = key[i];
         key[i] = key[j];
         key[j] = temp;
