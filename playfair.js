@@ -6,11 +6,11 @@ const ciphertext = "OPRSRMFTRARVEHCFDIQERAHEHIRVKMLKHUWEKNUIMXSNEZNKHOPLMPSROPRA
 
 //-------------------some keys found--(using random)-----------------------
 const keysToTry = [ 
-    ["U","G","X","Y","Q",   // COMMA, DOT
-     "S","P","R","N","Z",
-     "I","M","T","K","O",
-     "V","E","C","L","A",
-     "D","W","F","B","H"], 
+    ["G","Y","Z","U","B",
+     "S","V","T","E","R",
+     "N","X","O","M","F",
+     "D","C","H","I","L",
+     "K","Q","P","A","W"], 
     ["Q","R","W","S","Y",   // COMMA, DOT, THE
      "K","T","P","D","F",
      "U","H","M","N","G",
