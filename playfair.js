@@ -1,3 +1,6 @@
+import {englishDigraphFrequencies, enlishDigraphsDescendingFrequencyOrder} from "./englishDigraphFrequencies.js"
+
+// let table = [['P', 'L', 'A', 'Y', 'F'], ['I', 'R', 'B', 'C', 'D'], ['E', 'G', 'H', 'K', 'M'], ['N', 'O', 'Q', 'S', 'T'], ['U', 'V', 'W', 'X', 'Z']]
 
 const ciphertext = "OPRSRMFTRARVEHCFDIQERAHEHIRVKMLKHUWEKNUIMXSNEZNKHOPLMPSROPRAHUWEKNKEASCNHNTFOPGCHOHTILNERIMLVEITBSMURPHUWECHMFIUKMRKRSSIOPRAHEHIHXFOIUEDDGDMZDRSTXLHREMPPLDEATSLHOITDEFMSRZHARFLBIOPKMWIHRITSRVEMNGEOHUSOPRSHNOPRICERVDMOPVIHEZXMRIMEWDCNKHOHNTFOPBQKEZNDMZSMPNGKMHOITVWEMVEHMXDMFIUGBEHGEVOOPSMOPMIGMHIADDNHXFOIUPLHPKIURSMVEKMCLDSEDIROSCBGZHXFOIUUKTRWIMZKNPHZEKMHKMHOSSIOHOPVIFTMSTFORITPHGERAITSROPRALHASLKHEHIIPLGVMSMCBDMSKHOPLPEDEHEKEASHSITDLVORHTMDCPFIUXDMFIUKMCDMONPSIHXFOIUKMLGSUKMOHIWBYICHOOPRMVMREMNOPSIMULKHEHIIPCNCLEKQOATWESISMEHSRCBHXFOIUKMKDHOILDSKWRDRMRZZEOPRVLDTRSVPHRVHNEVITKWVNTNFHCHMFIUVMWHUAMSHSITALVHPHORITXMSEIHMFIUOPPETDSIELSIZAAYLHWDUCOSITEGDKHOOPPEDEOPVMSMHNOLRSHNRZZEOPRVLDTRSVPHRVWEVUMZSVHXFOIUKMCGMZTDWIDIQEREITOEFPMUSLHOTDRSMUHISIHNKFKMHKLHASIGZOITTDMTVDMFIUKMIKORRSTDWQDMZSITIGVEMZOHORITOIKMISHSITOENHFTHOCZHNVOOPRAHEHIMNOPVMMUVEKWTKTFGIMNOPNTRVLDTRSVPHRVHXFOIUEKLCMXTMORITIEXDDPDMVDMFIUKMHSITSRDETNIMHIWEXIMXMSHVSIALOPOPMIGBRPIPEHEHRKSMRTRSGDRAHNSHFTHOCZIQVFELSIOPRVPHRVDMOHOPTIMZVRKMHKIWIVHSITFMOSITEPRWSIHOOPSMTDVIUITMZEKUUAOSHOITIEXDDPDMEKDKEKLCAUIUXOHMGEOHUSRZQIPSMFUQGMEPDKGMHDVIMFIUNMELUIEGSROPVUALCFWBFTVBWUMZEOSIHOIQXGMZITHWIMMLDKXUKWZVITIEXDDPDMEKDKOPRAHEHIMLSVRHMONPSIPEMXMUXMOPRSHXFOIUKMHSITMKSHFTHOCZHXFOIUKMHSITDNPHNPOPMATLMUKNHNEPVOOPVMMUVEHXFOIUXMROWELFMFITSRHXFOIUEKLCMXVIMFIUOPRSMAEKBSMUSHRVRSVHMFIUKMKDMXVIMZDCDLTROHLVNTEDSHHOHEDEOPRVUIMUVOOPRVMZOPHXFOIUEKLCKMHOITVLMFIUNMELIPTRURSMOPRSMUDKVRSMHEHNVOOPRVMZOPDEOPVIMZOSVBMNOPVAEUCDDMSNHNEHUIOHDCHXFOIUEKLCOPREILSLIUXDMFIUOPPEHEDEOPRVUIMUVOOPRARVSHHOKMHSIPVHMZOSVBHXFOIUPLRSREITALDGAMRDCEVIMFIUDEEBIRLGZVITALDQSIALVHPHORITARVEHXFOIUPLFPMZDCIUASZXZIRSRDQEMAXBMZAWVNVRCIRSKWGCHOOPSMFTOPDEXUPHIMHXFOIUEKLCOPTMDCIWCGHXFOIUKMIKEHEVSIUSDEOPRVUISUSRPEISVRSEOPPEEGVFTFGMKNOPDEIWDKMNHTHNEHIULFUACHMFIUXUISWEHXFOIUZXBALDDIQEREFHCERAHEIZNKHOHNTFOPZGSUKMOHTNUWVOOPDEHXFOIUNMSVITMRHRHFMSCBUIMXUKCFHRITVRVEEWDSTATMWHSIHOITSEMUSVVRMISIOHBSAMTROPSADMCIMUSESIIEXDDPDMVDMFIUNMSEITUCFOIMCLPERIZVMONPMZVOOPMATLKMKGRSHIAMNRKMLGSUKMOHARTAWITNHNEPRNFTOPRIHERHTMDCPFIUXDMFIUTDREMONPMNOLRSIQAWDKUWIWXDSIOPTAMHOSMXOPVMSMHNOLRSXMVRHXFOIUPLLDRVITHXGMERHNMSHXFOIURPXHMFIUOPSRMAMKTNIRFXTXLHSIHOPEMXIVOPVIWAHIKMUSHSMPRDPEVIMFIUMXPLLHLPKEBFHEERMDFGDUHXFOIUPLHEVIIPDWIUSWRDREHNTFOPZYHOHOITHLVZMNMIRSWIKNOPRIHERHTMDCPFIUOSMONPOPRVIWERLFMFITSFNTVIMFIUKMCIQEDMBSMUHSITPFSLTNMDVHMFIUKEASCHMFIUDEZXBEMKIMHNTFOPVQMFIUXUISWEUVVDMFIUKMRKRSSIOPVIILDCHXFOIUHFNPDMYBAWDKLSUCDSITSEMUSVHNVOOPSMZXEIGESZHOHOITHLVZMNMIRSWIKNHNOZRSIPKTHTALCFDIRIQZMZHNRPITSRDEOPDEHLVZKEASCNHNTFOPGCHOHEDEVMQIRHUCOSITIVOSRSMNOPVIMZOSVBHXFOIUKMCLVSBISIGZHTHXFOIUOPSUSRPEALUPSLHEFHCGMZMN";
 
@@ -17,9 +20,97 @@ const keysToTry = [
      "I","Z","S","H","Q",
      "T","X","F","R","Y",
      "A","B","U","L","N",
-     "M","G","K","E","W"]
+     "M","G","K","E","W"],
+     ["Y","Z","L","X","Q",
+     "F","A","W","G","D",
+     "U","B","C","N","S",
+     "I","V","E","O","R",
+     "M","P","H","T","K"], 
+    ["T","C","P","K","V",
+     "H","L","G","U","Y",
+     "F","I","Z","X","W",
+     "R","Q","S","E","M",
+     "N","B","O","A","D"],
+    ["L","I","Y","V","G",
+     "R","P","B","A","W",
+     "F","U","H","Z","N",
+     "T","M","E","O","D",
+     "X","C","K","S","Q"],
+    ["D","X","I","N","M",
+     "U","P","O","Z","S",
+     "W","G","R","B","T",
+     "C","E","L","Q","V",
+     "Y","F","H","K","A"],
+    ["V","Y","Z","S","I",
+     "K","N","W","X","G",
+     "C","E","P","T","A",
+     "U","B","O","R","D",
+     "Q","M","F","L","H"],
+    ["L","T","V","B","O",
+     "Q","A","N","S","R",
+     "U","M","C","E","F",
+     "X","G","K","Z","D",
+     "W","P","Y","I","H"],
+    ["P","B","I","M","T",
+     "X","W","C","F","H",
+     "S","L","A","U","N",
+     "D","Y","V","R","K",
+     "E","Z","G","O","Q"],
+    ["E","A","H","I","V",
+     "M","Z","O","R","Y",
+     "Q","L","F","B","W",
+     "S","P","C","X","N",
+     "D","G","T","K","U"],
+    ["I","Q","G","C","B",
+     "U","H","M","A","Y",
+     "L","E","R","S","K",
+     "F","X","Z","O","P",
+     "W","V","T","N","D"],
+    ["K","Y","W","T","H",
+     "U","B","Z","L","Q",
+     "V","F","C","P","O",
+     "N","R","I","S","D",
+     "X","A","G","M","E"],
+    ["A","L","Z","R","H",
+     "M","X","E","Q","V",
+     "D","I","Y","T","C",
+     "W","N","B","O","S",
+     "U","G","P","F","K"],
+    ["I","C","W","N","Z",
+     "O","V","D","E","M",
+     "T","U","F","S","R",
+     "A","Y","H","X","P",
+     "K","L","Q","B","G"],
+    ["L","T","S","B","G",
+     "Q","V","Z","W","U",
+     "H","D","X","I","F",
+     "C","Y","A","N","K",
+     "O","E","R","M","P"],
+    ["E","D","S","U","P",
+     "X","I","A","B","T",
+     "N","C","M","Q","F",
+     "V","R","K","G","O",
+     "Y","H","Z","W","L"],
+    ["N","Z","R","E","X",
+     "B","L","F","K","G",
+     "T","Y","Q","P","S",
+     "U","I","V","C","O",
+     "W","H","A","M","D"],
+    ["O","T","I","X","Q",
+     "B","P","D","N","L",
+     "C","V","W","Y","R",
+     "U","E","A","S","Z",
+     "K","M","G","F","H"]
 ];
 
+//---------------------try keys------------------------------
+
+// tryExample();
+// runN(randomKey, 10000000); //found a successful key! -> U,G,X,Y,Q,S,P,R,N,Z,I,M,T,K,O,V,E,C,L,A,D,W,F,B,H -> plaintext has COMMA and DOT in it
+
+for (let i = 0; i < keysToTry.length; i++) {
+    runOne(keysToTry[i], true);
+}
 //-------------------try example----------------
 tryExample();
 function tryExample(){
@@ -54,10 +145,8 @@ let alphabet = ['A', 'B', 'C', 'D', 'E',
 
 
 
-//---------------------try keys------------------------------
-runOne(keysToTry[0], true);
 
-// runN(randomKey, 1000000); //found a successful key! -> U,G,X,Y,Q,S,P,R,N,Z,I,M,T,K,O,V,E,C,L,A,D,W,F,B,H -> plaintext has COMMA and DOT in it
+
 
 
 
@@ -103,7 +192,8 @@ function runOne(key, verbose) {
     console.log(report);
     
     if (verbose) {
-        console.log(plaintextAsDigraphs(highlightFoundKeywords(result)));
+        console.log(highlightFoundKeywords(punctuatePlaintext(result)));
+        // console.log(plaintextAsDigraphs(highlightFoundKeywords(result)));
     }
 
     return success;
@@ -141,19 +231,19 @@ function plaintextAsDigraphs (plaintext) {
 }
 
 function highlightFoundKeywords (str) {
-    str = str.replace(/THE/g, "the");
-    str = str.replace(/AND/g, "and");
-    str = str.replace(/IS/g, "is");
-    str = str.replace(/IN/g, "in");
-    str = str.replace(/ON/g, "on");
-    str = str.replace(/ARE/g, "are");
-    str = str.replace(/FOR/g, "for");
+    str = str.replace(/THE/g, " the ");
+    str = str.replace(/AND/g, " and ");
+    str = str.replace(/IS/g, " is ");
+    str = str.replace(/IN/g, " in ");
+    str = str.replace(/ON/g, " on ");
+    str = str.replace(/ARE/g, " are ");
+    str = str.replace(/FOR/g, " for ");
     return str;
 }
 
 function punctuatePlaintext (str) {
-    str = str.replace(/COMMA/g, ",");
-    str = str.replace(/DOT/g, ".");
+    str = str.replace(/COMMA/g, " , ");
+    str = str.replace(/DOT/g, " . ");
     return str;
 }
 
