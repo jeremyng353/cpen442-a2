@@ -150,8 +150,9 @@ function keyShuffle(key) {
 }
 
 function modifyKey(oldKey){
-    let i,j,k = Number.random % 50;
-    let newKey;
+    let i = Math.floor(Math.random() * 50);
+    let j,k;
+    let newKey = new Array(25);
     switch(i){
         case 0: 
             newKey = structuredClone(oldKey);
@@ -169,14 +170,14 @@ function modifyKey(oldKey){
         case 3:
             for(k = 0; k < 5; k++){
                 for(j = 0; j < 5; j++){
-                    newKey[k*5+j] = oldKey[(4-k)*5-j];
+                    newKey[k*5+j] = oldKey[(4-k)*5+j];
                 }
             }
             break;
         case 4:
             for(k = 0; k < 5; k++){
                 for(j = 0; j < 5; j++){
-                    newKey[j*5+k] = oldKey[(4-j)*5-k];
+                    newKey[j*5+k] = oldKey[(4-j)*5+k];
                 }
             }
             break;
