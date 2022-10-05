@@ -16,12 +16,55 @@ import {readFileSync, promises as fsPromises} from 'fs';
 */
 const ciphertext = "OPRSRMFTRARVEHCFDIQERAHEHIRVKMLKHUWEKNUIMXSNEZNKHOPLMPSROPRAHUWEKNKEASCNHNTFOPGCHOHTILNERIMLVEITBSMURPHUWECHMFIUKMRKRSSIOPRAHEHIHXFOIUEDDGDMZDRSTXLHREMPPLDEATSLHOITDEFMSRZHARFLBIOPKMWIHRITSRVEMNGEOHUSOPRSHNOPRICERVDMOPVIHEZXMRIMEWDCNKHOHNTFOPBQKEZNDMZSMPNGKMHOITVWEMVEHMXDMFIUGBEHGEVOOPSMOPMIGMHIADDNHXFOIUPLHPKIURSMVEKMCLDSEDIROSCBGZHXFOIUUKTRWIMZKNPHZEKMHKMHOSSIOHOPVIFTMSTFORITPHGERAITSROPRALHASLKHEHIIPLGVMSMCBDMSKHOPLPEDEHEKEASHSITDLVORHTMDCPFIUXDMFIUKMCDMONPSIHXFOIUKMLGSUKMOHIWBYICHOOPRMVMREMNOPSIMULKHEHIIPCNCLEKQOATWESISMEHSRCBHXFOIUKMKDHOILDSKWRDRMRZZEOPRVLDTRSVPHRVHNEVITKWVNTNFHCHMFIUVMWHUAMSHSITALVHPHORITXMSEIHMFIUOPPETDSIELSIZAAYLHWDUCOSITEGDKHOOPPEDEOPVMSMHNOLRSHNRZZEOPRVLDTRSVPHRVWEVUMZSVHXFOIUKMCGMZTDWIDIQEREITOEFPMUSLHOTDRSMUHISIHNKFKMHKLHASIGZOITTDMTVDMFIUKMIKORRSTDWQDMZSITIGVEMZOHORITOIKMISHSITOENHFTHOCZHNVOOPRAHEHIMNOPVMMUVEKWTKTFGIMNOPNTRVLDTRSVPHRVHXFOIUEKLCMXTMORITIEXDDPDMVDMFIUKMHSITSRDETNIMHIWEXIMXMSHVSIALOPOPMIGBRPIPEHEHRKSMRTRSGDRAHNSHFTHOCZIQVFELSIOPRVPHRVDMOHOPTIMZVRKMHKIWIVHSITFMOSITEPRWSIHOOPSMTDVIUITMZEKUUAOSHOITIEXDDPDMEKDKEKLCAUIUXOHMGEOHUSRZQIPSMFUQGMEPDKGMHDVIMFIUNMELUIEGSROPVUALCFWBFTVBWUMZEOSIHOIQXGMZITHWIMMLDKXUKWZVITIEXDDPDMEKDKOPRAHEHIMLSVRHMONPSIPEMXMUXMOPRSHXFOIUKMHSITMKSHFTHOCZHXFOIUKMHSITDNPHNPOPMATLMUKNHNEPVOOPVMMUVEHXFOIUXMROWELFMFITSRHXFOIUEKLCMXVIMFIUOPRSMAEKBSMUSHRVRSVHMFIUKMKDMXVIMZDCDLTROHLVNTEDSHHOHEDEOPRVUIMUVOOPRVMZOPHXFOIUEKLCKMHOITVLMFIUNMELIPTRURSMOPRSMUDKVRSMHEHNVOOPRVMZOPDEOPVIMZOSVBMNOPVAEUCDDMSNHNEHUIOHDCHXFOIUEKLCOPREILSLIUXDMFIUOPPEHEDEOPRVUIMUVOOPRARVSHHOKMHSIPVHMZOSVBHXFOIUPLRSREITALDGAMRDCEVIMFIUDEEBIRLGZVITALDQSIALVHPHORITARVEHXFOIUPLFPMZDCIUASZXZIRSRDQEMAXBMZAWVNVRCIRSKWGCHOOPSMFTOPDEXUPHIMHXFOIUEKLCOPTMDCIWCGHXFOIUKMIKEHEVSIUSDEOPRVUISUSRPEISVRSEOPPEEGVFTFGMKNOPDEIWDKMNHTHNEHIULFUACHMFIUXUISWEHXFOIUZXBALDDIQEREFHCERAHEIZNKHOHNTFOPZGSUKMOHTNUWVOOPDEHXFOIUNMSVITMRHRHFMSCBUIMXUKCFHRITVRVEEWDSTATMWHSIHOITSEMUSVVRMISIOHBSAMTROPSADMCIMUSESIIEXDDPDMVDMFIUNMSEITUCFOIMCLPERIZVMONPMZVOOPMATLKMKGRSHIAMNRKMLGSUKMOHARTAWITNHNEPRNFTOPRIHERHTMDCPFIUXDMFIUTDREMONPMNOLRSIQAWDKUWIWXDSIOPTAMHOSMXOPVMSMHNOLRSXMVRHXFOIUPLLDRVITHXGMERHNMSHXFOIURPXHMFIUOPSRMAMKTNIRFXTXLHSIHOPEMXIVOPVIWAHIKMUSHSMPRDPEVIMFIUMXPLLHLPKEBFHEERMDFGDUHXFOIUPLHEVIIPDWIUSWRDREHNTFOPZYHOHOITHLVZMNMIRSWIKNOPRIHERHTMDCPFIUOSMONPOPRVIWERLFMFITSFNTVIMFIUKMCIQEDMBSMUHSITPFSLTNMDVHMFIUKEASCHMFIUDEZXBEMKIMHNTFOPVQMFIUXUISWEUVVDMFIUKMRKRSSIOPVIILDCHXFOIUHFNPDMYBAWDKLSUCDSITSEMUSVHNVOOPSMZXEIGESZHOHOITHLVZMNMIRSWIKNHNOZRSIPKTHTALCFDIRIQZMZHNRPITSRDEOPDEHLVZKEASCNHNTFOPGCHOHEDEVMQIRHUCOSITIVOSRSMNOPVIMZOSVBHXFOIUKMCLVSBISIGZHTHXFOIUOPSUSRPEALUPSLHEFHCGMZMN";
 //main();
-console.log(englishStatsFileRead("english_trigrams.txt"));
 // Adapted from http://practicalcryptography.com/cryptanalysis/stochastic-searching/cryptanalysis-playfair/
+class NGram_Score{
+    // read from a file with lines of format {qgram count}, into an object with format {qgram:count}
+    constructor(filename) {
+        let contents = readFileSync(filename, "utf-8").split(/\r?\n/);
+        this.stats = {};
+        for (let i = 0; i < contents.length; i++) {
+            let line = contents[i].split(" ");
+            this.stats[line[0]] = line[1];
+        }
+        
+        this.N = 0
+        for(let key in this.stats){
+            if (this.L >0){
+                continue;
+            }
+            else{
+                this.L = key.length
+            }
+            this.N += this.stats[key]
+        }
+
+        for(let key in this.stats){
+            this.stats[key] = Math.log10(this.stats[key]/this.N)
+        }
+        this.floor = Math.log10(0.01/this.N)
+        
+
+    }
+    
+    getScore(text){
+        let score = 0;
+        for(let i = 0; i < text.length-this.L; i++){
+            if (this.stats.hasOwnProperty(text.slice(i,i+this.L))){
+                score += this.stats[text.slice(i,i+this.L)];
+            }
+            else{
+                score += this.floor
+            }
+        }
+        return score
+    }
+}
 
 
+main();
 
 function main() {
+    let ngram = new NGram_Score("english_quadgrams.txt");
     let key = ["Q","R","W","S","Y",
             "K","T","P","D","F",
             "U","H","M","N","G",
@@ -37,12 +80,12 @@ function main() {
 
     while(true) {
         let plaintext = playfair(ciphertext, key);
-        let score = textFitness(plaintext);
+        let score = ngram.getScore(plaintext);
         for (let i = 20; i > 0; i -= 0.2) {
             for (let j = 10000; j > 0; j--) {
-                let newKey = shuffleKey(key); // change key slightly
+                let newKey = modifyKey(key); // change key slightly
                 let newPlaintext = playfair(ciphertext, newKey);
-                let newScore = textFitness(ciphertext, newPlaintext);
+                let newScore = ngram.getScore(ciphertext, newPlaintext);
                 if (newScore > score) {
                     score = newScore;
                 } else {
@@ -55,6 +98,7 @@ function main() {
                 if (score > bestScore) {
                     bestScore = score;
                     bestKey = newKey;
+                    console.log(`New best key: ${bestKey}`);
                     console.log(`New best score: ${bestScore}`);
                     console.log(`Plaintext: ${newPlaintext}`);
                 }
@@ -81,13 +125,12 @@ function playfair(ciphertext, key) {
             table_map[table[i][j]] = [i, j];
         }
     }
-    // console.log(table);
-    // console.log(table_map);
     
     for (let i = 0; i < ciphertext.length-1; i += 2) {
         let digraph = "";
         let l1 = "";
         let l2 = "";
+        
         if (table_map[ciphertext[i]][0] == table_map[ciphertext[i+1]][0]) {
             // column
             let i1 = table_map[ciphertext[i]];
@@ -164,7 +207,7 @@ function modifyKey(oldKey){
             swap2cols(newKey);
             break;
         case 2:
-            for(k = 0; k < 5; k++){
+            for(k = 0; k < 25; k++){
                 newKey[k] = oldKey[24-k]; 
             }
             break;
@@ -186,6 +229,7 @@ function modifyKey(oldKey){
             newKey = structuredClone(oldKey);
             exchange2letters(newKey);
     }
+    
     return newKey;
 }
 
@@ -221,52 +265,5 @@ function swap2cols(key){
     }
 }
 
-function scoreTextQgram(text, len){
-    let i = 0;
-    let temp = new Array(4);
-    let score = 0.0;
-    for(i = 0; i < len-3; i++){
-        temp[0] = text[i]-'A';
-        temp[1] = text[i+1]-'A';
-        temp[2] = text[i+2]-'A';
-        temp[3] = text[i+3]-'A';
-        score += qgram[17576*temp[0] + 676*temp[1] + 26*temp[2] + temp[3]];
-    }
-    return score;
-}
 
 
-class NGram_Score{
-    // read from a file with lines of format {qgram count}, into an object with format {qgram:count}
-    constructor(filename) {
-        let contents = readFileSync(filename, "utf-8").split(/\r?\n/);
-        this.stats = {};
-        for (let i = 0; i < contents.length; i++) {
-            let line = contents[i].split(" ");
-            this.stats[line[0]] = line[1];
-        }
-        this.N = 0
-        for(let key in this.stats){
-            this.L = key.length
-            this.N += this.stats[key]
-        }
-
-        for(let key in this.stats){
-            this.stats[key] = Math.log10(this.stats[key]/self.N)
-        }
-        this.floor = Math.log10(0.01/self.N)
-
-    }
-    
-    getScore(text){
-        let score = 0;
-        for(let i = 0; i < text.length-this.L; i++){
-            if (this.stats.hasOwnProperty(text.slice(i,i+this.L))){
-                score += this.stats[text.slice(i,i+this.L)];
-            }
-            else{
-                score += this.floor
-            }
-        }
-    }
-}
