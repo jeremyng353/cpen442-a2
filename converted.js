@@ -5,12 +5,20 @@ run(ciphertext);
 
 function run(ciphertext) {
     let i = 0;
-    let maxScore = Number.MIN_VALUE;
+    let maxScore = -Number.MAX_VALUE;
+    let key = ["O","T","I","X","Q",
+     "B","P","D","N","L",
+     "C","V","W","Y","R",
+     "U","E","A","S","Z",
+     "K","M","G","F","H"];
     while (maxScore < -11500) {
         i++;
         let score = playfairScore(ciphertext, key);
         if (score > maxScore) {
             maxScore = score;
+            console.log(`best score so far: ${maxScore}, on iteration ${i}`);
+            console.log(`key: ${key}`);
+            console.log(`plaintext: ${playfair(ciphertext, key)}`);
         }
     }
 }
@@ -133,7 +141,6 @@ function playfair(ciphertext, key) {
     return plaintext;
 }
 
-// TODO: when trying to shuffle the key, one entry is undefined
 function keyShuffle(key) {
     for (let i = 1; i < 25; i++) {
         let j = Math.round(Math.random() * 100) % (i + 1);
