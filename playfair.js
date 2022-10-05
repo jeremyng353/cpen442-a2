@@ -3,11 +3,11 @@ const ciphertext = "OPRSRMFTRARVEHCFDIQERAHEHIRVKMLKHUWEKNUIMXSNEZNKHOPLMPSROPRA
 
 //-------------------some keys found--(using random)-----------------------
 const keysToTry = [ 
-    ["U","G","X","Y","Q",   // COMMA, DOT
-     "S","P","R","N","Z",
-     "I","M","T","K","O",
-     "V","E","C","L","A",
-     "D","W","F","B","H"], 
+    ["G","Y","Z","U","B",
+     "S","V","T","E","R",
+     "N","X","O","M","F",
+     "D","C","H","I","L",
+     "K","Q","P","A","W"], 
     ["Q","R","W","S","Y",   // COMMA, DOT, THE
      "K","T","P","D","F",
      "U","H","M","N","G",
@@ -56,8 +56,7 @@ let alphabet = ['A', 'B', 'C', 'D', 'E',
 
 //---------------------try keys------------------------------
 runOne(keysToTry[0], true);
-runOne(keysToTry[1], true);
-runOne(keysToTry[2], true);
+
 // runN(randomKey, 1000000); //found a successful key! -> U,G,X,Y,Q,S,P,R,N,Z,I,M,T,K,O,V,E,C,L,A,D,W,F,B,H -> plaintext has COMMA and DOT in it
 
 
