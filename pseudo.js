@@ -24,18 +24,35 @@ function main() {
             "Z","O","E","I","A",
             "L","V","B","X","C"];
 
+    let bestScore = -Number.MAX_VALUE;
+    let bestKey = ["Q","R","W","S","Y",
+            "K","T","P","D","F",
+            "U","H","M","N","G",
+            "Z","O","E","I","A",
+            "L","V","B","X","C"];
+
     while(true) {
         let plaintext = playfair(ciphertext, key);
-        let score = textFitness(plaintext);
+        let score = textScore(plaintext);
         for (let i = 20; i > 0; i -= 0.2) {
             for (let j = 10000; j > 0; j--) {
-                let newKey = shuffleKey(key); // change key slightly
-                let newScore = playfair(ciphertext, newKey);
+                let newKey = modifyKey(key); // change key slightly
+                let newPlaintext = playfair(ciphertext, newKey);
+                let newScore = textScore(ciphertext, newPlaintext);
                 if (newScore > score) {
                     score = newScore;
                 } else {
-                    let prob = Math.exp((newScore - score) / i);
+                    if (Math.exp((newScore - score) / i) > Math.random()) {
+                        score = newScore;
+                        key = newKey;
+                    }
+                }
 
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestKey = newKey;
+                    console.log(`New best score: ${bestScore}`);
+                    console.log(`Plaintext: ${newPlaintext}`);
                 }
             }
         }
@@ -127,4 +144,89 @@ function playfair(ciphertext, key) {
     }
     
     return plaintext;
+}
+
+function modifyKey(oldKey){
+    let i = Math.floor(Math.random() * 50);
+    let j,k;
+    let newKey = new Array(25);
+    switch(i){
+        case 0: 
+            newKey = structuredClone(oldKey);
+            swap2rows(newKey);
+            break;
+        case 1:
+            newKey = structuredClone(oldKey);
+            swap2cols(newKey);
+            break;
+        case 2:
+            for(k = 0; k < 5; k++){
+                newKey[k] = oldKey[24-k]; 
+            }
+            break;
+        case 3:
+            for(k = 0; k < 5; k++){
+                for(j = 0; j < 5; j++){
+                    newKey[k*5+j] = oldKey[(4-k)*5+j];
+                }
+            }
+            break;
+        case 4:
+            for(k = 0; k < 5; k++){
+                for(j = 0; j < 5; j++){
+                    newKey[j*5+k] = oldKey[(4-j)*5+k];
+                }
+            }
+            break;
+        default:
+            newKey = structuredClone(oldKey);
+            exchange2letters(newKey);
+    }
+    return newKey;
+}
+
+function exchange2letters(key){
+    let i = Math.floor(Math.random() * 25);
+    let j = Math.floor(Math.random() * 25);
+    let temp = key[i];
+    key[i] = key[j];
+    key[j] = temp;
+}
+
+function swap2rows(key){
+    let i = Math.floor(Math.random() * 5);
+    let j = Math.floor(Math.random() * 5);
+    let temp;
+    
+    for(let k = 0; k < 5; k++){
+        temp = key[i*5+k];
+        key[i*5 +k] = key[j*5+k];
+        key[j*5+k] = temp;
+    }
+}
+
+function swap2cols(key){
+    let i = Math.floor(Math.random() * 5);
+    let j = Math.floor(Math.random() * 5);
+    let temp;
+    
+    for(let k = 0; k < 5; k++){
+        temp = key[i+k*5];
+        key[i+k*5] = key[j+k*5];
+        key[j+k*5] = temp;
+    }
+}
+
+function textScore(text, len){
+    let i = 0;
+    let temp = new Array(4);
+    let score = 0.0;
+    for(i = 0; i < len-3; i++){
+        temp[0] = text[i]-'A';
+        temp[1] = text[i+1]-'A';
+        temp[2] = text[i+2]-'A';
+        temp[3] = text[i+3]-'A';
+        score += qgram[17576*temp[0] + 676*temp[1] + 26*temp[2] + temp[3]];
+    }
+    return score;
 }
