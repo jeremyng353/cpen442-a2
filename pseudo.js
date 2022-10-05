@@ -18,6 +18,9 @@ const ciphertext = "OPRSRMFTRARVEHCFDIQERAHEHIRVKMLKHUWEKNUIMXSNEZNKHOPLMPSROPRA
 //main();
 console.log(englishStatsFileRead("english_trigrams.txt"));
 // Adapted from http://practicalcryptography.com/cryptanalysis/stochastic-searching/cryptanalysis-playfair/
+
+
+
 function main() {
     let key = ["Q","R","W","S","Y",
             "K","T","P","D","F",
@@ -232,13 +235,38 @@ function scoreTextQgram(text, len){
     return score;
 }
 
-// read from a file with lines of format {qgram count}, into an object with format {qgram:count}
-function englishStatsFileRead(filename) {
-    let contents = readFileSync(filename, "utf-8").split(/\r?\n/);
-    let stats = {};
-    for (let i = 0; i < contents.length; i++) {
-        let line = contents[i].split(" ");
-        stats[line[0]] = line[1];
+
+class NGram_Score{
+    // read from a file with lines of format {qgram count}, into an object with format {qgram:count}
+    constructor(filename) {
+        let contents = readFileSync(filename, "utf-8").split(/\r?\n/);
+        this.stats = {};
+        for (let i = 0; i < contents.length; i++) {
+            let line = contents[i].split(" ");
+            this.stats[line[0]] = line[1];
+        }
+        this.N = 0
+        for(let key in this.stats){
+            this.L = key.length
+            this.N += this.stats[key]
+        }
+
+        for(let key in this.stats){
+            this.stats[key] = Math.log10(this.stats[key]/self.N)
+        }
+        this.floor = Math.log10(0.01/self.N)
+
     }
-    return stats; 
+    
+    getScore(text){
+        let score = 0;
+        for(let i = 0; i < text.length-this.L; i++){
+            if (this.stats.hasOwnProperty(text.slice(i,i+this.L))){
+                score += this.stats[text.slice(i,i+this.L)];
+            }
+            else{
+                score += this.floor
+            }
+        }
+    }
 }
