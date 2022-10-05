@@ -151,7 +151,7 @@ function keyShuffle(key) {
 
 function scoreTextQgram(text, len){
     let i = 0;
-    temp = new Array(4);
+    let temp = new Array(4);
     let score = 0.0;
     for(i = 0; i < len-3; i++){
         temp[0] = text[i]-'A';
