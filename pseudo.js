@@ -37,15 +37,9 @@ function main() {
         let score = textScore(plaintext);
         for (let i = 20; i > 0; i -= 0.2) {
             for (let j = 10000; j > 0; j--) {
-<<<<<<< HEAD
                 let newKey = modifyKey(key); // change key slightly
                 let newPlaintext = playfair(ciphertext, newKey);
-                let newScore = textScore(ciphertext, newPlaintext);
-=======
-                let newKey = shuffleKey(key); // change key slightly
-                let newPlaintext = playfair(ciphertext, newKey);
                 let newScore = textFitness(ciphertext, newPlaintext);
->>>>>>> d51d1e2a08e02434930306e92618ef5b4ba3a4c4
                 if (newScore > score) {
                     score = newScore;
                 } else {
