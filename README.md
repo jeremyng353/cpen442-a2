@@ -1,8 +1,8 @@
 # CPEN 442 Assignment 2
-In-Lab part
+### In-Lab part
 - groups.py: https://github.com/jeremyng353/cpen442-a2/blob/main/groups.py 
 
-At-Home part
+### At-Home part
 - playfair.js: https://github.com/jeremyng353/cpen442-a2/blob/main/playfair.js 
   - playfair(): takes in key and ciphertext to produce plaintext
   - tryExample(): tests the function playfair with the example given in Playfair Cipher mechanics pdf (https://www.dropbox.com/s/2uykh1e24k5hr10/02-Playfair%20Cipher.pdf)
