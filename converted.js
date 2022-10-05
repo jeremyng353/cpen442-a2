@@ -149,6 +149,77 @@ function keyShuffle(key) {
     }
 }
 
+function modifyKey(oldKey){
+    let i,j,k = Number.random % 50;
+    let newKey;
+    switch(i){
+        case 0: 
+            newKey = structuredClone(oldKey);
+            swap2rows(newKey);
+            break;
+        case 1:
+            newKey = structuredClone(oldKey);
+            swap2cols(newKey);
+            break;
+        case 2:
+            for(k = 0; k < 5; k++){
+                newKey[k] = oldKey[24-k]; 
+            }
+            break;
+        case 3:
+            for(k = 0; k < 5; k++){
+                for(j = 0; j < 5; j++){
+                    newKey[k*5+j] = oldKey[(4-k)*5-j];
+                }
+            }
+            break;
+        case 4:
+            for(k = 0; k < 5; k++){
+                for(j = 0; j < 5; j++){
+                    newKey[j*5+k] = oldKey[(4-j)*5-k];
+                }
+            }
+            break;
+        default:
+            newKey = structuredClone(oldKey);
+            exchange2letters(newKey);
+    }
+    console.log(newKey);
+    return newKey;
+}
+
+function exchange2letters(key){
+    let i = Math.floor(Math.random() * 25);
+    let j = Math.floor(Math.random() * 25);
+    let temp = key[i];
+    key[i] = key[j];
+    key[j] = temp;
+}
+
+function swap2rows(key){
+    let i = Math.floor(Math.random() * 5);
+    let j = Math.floor(Math.random() * 5);
+    let temp;
+    
+    for(let k = 0; k < 5; k++){
+        temp = key[i*5+k];
+        key[i*5 +k] = key[j*5+k];
+        key[j*5+k] = temp;
+    }
+}
+
+function swap2cols(key){
+    let i = Math.floor(Math.random() * 5);
+    let j = Math.floor(Math.random() * 5);
+    let temp;
+    
+    for(let k = 0; k < 5; k++){
+        temp = key[i+k*5];
+        key[i+k*5] = key[j+k*5];
+        key[j+k*5] = temp;
+    }
+}
+
 function scoreTextQgram(text, len){
     let i = 0;
     let temp = new Array(4);
